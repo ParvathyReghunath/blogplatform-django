@@ -1,0 +1,17 @@
+<!-- <h1>Hello world!</h1> -->
+{% extends 'base.html' %}
+{% block title %}Main blog{% endblock %}
+{% block content %}
+<h1>Post</h1>
+<ul>
+{% for x in object_list %}
+    <li><a href="{% url 'article_detail' x.pk %}">{{x.title}} </a>- {{x.author.first_name}} {{x.author.last_name}} {{post.date_post}}<br/>
+        {{x.body|slice:":100"|safe}}
+        {% if user.is_authenticated %}
+        <a href="{% url 'update_post' x.pk %}">(Edit)</a><a href="{% url 'delete_post' x.pk %}">(Delete)</a>
+        {% endif %}
+    </li>
+     
+{% endfor %}
+</ul>
+{% endblock %}
